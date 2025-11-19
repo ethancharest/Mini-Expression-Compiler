@@ -17,7 +17,7 @@ public class Token {
 
     private final TokenType type;
     private final String lexeme;
-    private final Double numericValue;  // only positive values
+    private final Integer numericValue;  // only positive values
     private final int position;         // index in original input string
 
     /**
@@ -28,7 +28,7 @@ public class Token {
      * @param numericValue  parsed numeric value (only for NUMBER, otherwise null)
      * @param position      starting character index of this token in the input
      */
-    public Token(TokenType type, String lexeme, Double numericValue, int position) {
+    public Token(TokenType type, String lexeme, Integer numericValue, int position) {
         this.type = type;
         this.lexeme = lexeme;
         this.numericValue = numericValue;
@@ -51,7 +51,7 @@ public class Token {
     /**
      * @return the numeric value of the token, or null if non-number
      */
-    public Double getNumericValue() {
+    public Integer getNumericValue() {
         return numericValue;
     }
 
@@ -62,9 +62,9 @@ public class Token {
     @Override
     public String toString() {
         if (type == TokenType.NUMBER) {
-            return String.format("Token(%s, lexeme '%s', value=%s, pos=%d" , type, lexeme, numericValue, position);
+            return String.format("Token %s, '%s', value = %s, pos = %d" , type, lexeme, numericValue, position);
         } else {
-            return String.format("Token(%s, lexeme '%s', pos=%d" , type, lexeme, position);
+            return String.format("Token %s, '%s', pos = %d" , type, lexeme, position);
         }
     }
 }

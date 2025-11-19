@@ -94,7 +94,7 @@ public class Lexer {
         }
 
         String lexeme = input.substring(start, current);
-        double value = Double.parseDouble(lexeme);
+        int value = Integer.parseInt(lexeme);
 
         return new Token(TokenType.NUMBER, lexeme, value, start);
     }
@@ -120,5 +120,23 @@ public class Lexer {
         char c = input.charAt(current);
         current++;
         return c;
+    }
+
+    public static String formatTokenList(List<Token> tokens) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("["); 
+
+        boolean first = true;
+        for (Token t: tokens) {
+            if (t.getType() == TokenType.EOF) {
+              continue;  
+            }
+            if (!first) sb.append(",");
+            sb.append(t.getLexeme());
+            first = false; 
+        }
+
+        sb.append("]");
+        return sb.toString();
     }
 }

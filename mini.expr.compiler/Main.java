@@ -21,7 +21,8 @@ public class Main {
 
         try {
             tokens = lexer.tokenize();
-            System.out.println("Tokens:");
+            System.out.println("Tokens: " + Lexer.formatTokenList(tokens));
+            System.out.println("List of tokens:");
             for (Token t : tokens) {
                 System.out.println("" + t);
             }

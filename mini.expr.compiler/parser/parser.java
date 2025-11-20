@@ -1,6 +1,5 @@
 import java.text.ParseException;
 import java.util.List;
-import java.util.function.BinaryOperator;
 /**
  * Parser for Mini Expression Compiler.
  *
@@ -94,7 +93,7 @@ public class Parser {
         if(match(TokenType.LPAREN)) {
             Expr expr = expression();
             // Expects a closing ')' 
-            Token rparen = consume(TokenType.RPAREN, "Expected ')' to match '(' at starting position " + previous().getPosition());
+            consume(TokenType.RPAREN, "Expected ')' to match '(' at starting position " + previous().getPosition());
             return expr;
         }
 

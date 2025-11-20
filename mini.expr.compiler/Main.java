@@ -50,10 +50,11 @@ public class Main {
             return;
         }
 
-        // // 3. Print Parse Tree
-        // System.out.println("\nParse Tree:");
-        // AstPrinter printer = new AstPrinter();
-        // System.out.println(printer.print(ast));
+        // 3. Print Parse Tree
+        System.out.println("===============================================");
+        System.out.println("Parse Tree:");
+        AstPrinter printer = new AstPrinter();
+        System.out.println(printer.print(ast));
 
         // // 4. Evaluate
 

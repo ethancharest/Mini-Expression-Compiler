@@ -35,7 +35,7 @@ public class Parser {
 
         // After parsing it should be at EOF
         if(!isAtEnd()){
-            Token t = peek()
+            Token t = peek();
             throw error(t, "Unexpected token '" + t.getLexeme() + "' at position " + t.getPosition() + " after complete expression");
         }
 
@@ -87,7 +87,7 @@ public class Parser {
 
         if(match(TokenType.NUMBER)) {
             Token numberToken = previous();
-            int value = numberToken.getIntValue();
+            int value = numberToken.getNumericValue();
             return new NumberExpr(value);
         }
 

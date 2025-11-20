@@ -32,19 +32,23 @@ public class Main {
             return;
         }
 
-        // // 2. Parsing
+        // 2. Parsing
 
-        // Parser parser = new Parser(tokens);
-        // Expr ast = null;
+        Parser parser = new Parser(tokens);
+        Expr ast = null;
 
-        // try {
-        //     ast = parser.parse();
-        //     System.out.println("\nParser: success");
-        // } catch (ParseException e) {
-        //     System.out.println("\nParser: failure");
-        //     System.out.println("Reason: " + e.getMessage());
-        //     return;
-        // }
+        try {
+            ast = parser.parse();
+            System.out.println("===============================================");
+            System.out.println("Parser: Success!");    // Parser was successful
+            System.out.println("AST root type: " + ast.getClass().getSimpleName());     // Prints the root type
+        } catch (ParseException e) {
+            System.out.println("===============================================");
+            System.out.println("Parser: FAILED");    // Parser was unsuccessful
+            System.out.println("Reason: " + e.getMessage());
+            scanby.close();
+            return;
+        }
 
         // // 3. Print Parse Tree
         // System.out.println("\nParse Tree:");
@@ -61,7 +65,7 @@ public class Main {
         //     System.out.println("\nEvaluation Error: " + e.getMessage());
         // }
 
-        System.out.println("====================================================");
+        System.out.println("================================================");
         scanby.close();
     }
 }

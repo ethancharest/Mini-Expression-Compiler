@@ -3,11 +3,11 @@
  * AST node representing a unary operation, currently only:
  * -()
  */
-public class UnaryExpr {
+public class UnaryExpr implements Expr {
     private final Token operator;
     private final Expr right;
 
-    private UnaryExpr(Token operator, Expr right) {
+    public UnaryExpr(Token operator, Expr right) {
         this.operator = operator;
         this.right = right;
     }

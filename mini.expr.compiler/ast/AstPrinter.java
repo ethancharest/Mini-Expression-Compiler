@@ -5,7 +5,7 @@
  * 
  * Class recursively "builds" each subtree into an array of strings
  * For binary nodes, horizontally merge the left and right subtrees
- * Places the operator and branch connectors ("/" "\") above them working upward. 
+ * Places the operator and branch connectors ("/" "\\") above them working upward. 
  */
 public class AstPrinter {
     
@@ -44,17 +44,24 @@ public class AstPrinter {
         }
 
         // Unary nodes
-        // Place the operator on its own line, then indent its child by one space 
+        // Place the operator on its own line, then indent its child by one space.
+        // If the child is a single-line number, print the operator next to it (e.g. "-5").
         if (expr instanceof UnaryExpr) {
             UnaryExpr u = (UnaryExpr) expr;
             String op = u.getOperator().getLexeme();
+            String opDisplay = "/".equals(op) ? "÷" : op;
 
             // Recursively build the right subtree
             String[] child = build(u.getRight());
 
+            // If the child is a single line and looks like a simple number, combine on one line: "-5"
+            if (child.length == 1 && child[0].trim().matches("\\d+")) {
+                return new String[] { opDisplay + child[0].trim() };
+            }
+
             // Result has one extra line: operator on top, then the child subtree
             String[] result = new String[child.length + 1];
-            result[0] = op; // operator at the root line
+            result[0] = opDisplay; // operator at the root line
 
             // Indent every line of the child by one space so its right under the operator
             for (int i = 0; i < child.length; i++) {
@@ -67,6 +74,7 @@ public class AstPrinter {
         if (expr instanceof BinaryExpr) {
             BinaryExpr b = (BinaryExpr) expr;
             String op = b.getOperator().getLexeme();
+            String opDisplay = "/".equals(op) ? "÷" : op;
 
             // Build the AST blocks for left / right subtrees
             String[] left = build(b.getLeft());
@@ -77,7 +85,7 @@ public class AstPrinter {
             int leftWidth = width(left);
 
             // Root line: pad with spaces so the operator sits roughly above the gap between L and R. "+2" is a small tuning offset
-            String root = " ".repeat(leftWidth + 2) + op;
+            String root = " ".repeat(leftWidth + 1) + opDisplay;
 
             // Connector line: spaces up to the left subtree width for proper spacing
             String connector = " ".repeat(leftWidth) + "/ \\";   // / and \ separated by ONE space

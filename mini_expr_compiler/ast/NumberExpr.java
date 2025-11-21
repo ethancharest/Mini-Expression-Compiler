@@ -1,3 +1,5 @@
+package mini_expr_compiler.ast;
+
 /**
  * AST node representing an integer ("3","59","86")
  */

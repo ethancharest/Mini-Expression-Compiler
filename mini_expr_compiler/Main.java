@@ -1,3 +1,10 @@
+package mini_expr_compiler;
+
+import mini_expr_compiler.ast.*;
+import mini_expr_compiler.eval.*;
+import mini_expr_compiler.parser.*;
+import mini_expr_compiler.lexer1.*;
+
 import java.util.Scanner;
 import java.text.ParseException;
 import java.util.List;
@@ -56,15 +63,15 @@ public class Main {
         AstPrinter printer = new AstPrinter();
         System.out.println(printer.print(ast));
 
-        // // 4. Evaluate
+        // 4. Evaluate
 
-        // Evaluator eval = new Evaluator();
-        // try {
-        //     double result = eval.evaluate(ast);
-        //     System.out.println("\nEvaluation Result: " + result);
-        // } catch (Exception e) {
-        //     System.out.println("\nEvaluation Error: " + e.getMessage());
-        // }
+        Evaluator eval = new Evaluator();
+        try {
+            double result = eval.evaluate(ast);
+            System.out.println("\nEvaluation Result: " + result);
+        } catch (Exception e) {
+            System.out.println("\nEvaluation Error: " + e.getMessage());
+        }
 
         System.out.println("================================================");
         scanby.close();

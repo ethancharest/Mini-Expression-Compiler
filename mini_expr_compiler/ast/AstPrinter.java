@@ -1,3 +1,4 @@
+package mini_expr_compiler.ast;
 
 /**
  * Responsible for turning an Expr tree into a readable AST tree

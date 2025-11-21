@@ -1,3 +1,7 @@
+package mini_expr_compiler.ast;
+
+import mini_expr_compiler.lexer1.*;
+
 /**
  * AST node representing a binary operation (left (operator) right)
  * Example: 5 + 6 or (3 + 2) + 5

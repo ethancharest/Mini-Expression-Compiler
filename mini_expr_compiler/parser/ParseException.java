@@ -1,3 +1,4 @@
+package mini_expr_compiler.parser;
 /**
  * checked exception type used to signal syntax errors when parsing 
  */

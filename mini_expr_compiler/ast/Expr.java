@@ -4,5 +4,4 @@ package mini_expr_compiler.ast;
  * All expressions use this interface 
  */
 public interface Expr {
-    // no method right now. Evaluator will use instanceof
 }

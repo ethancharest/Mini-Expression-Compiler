@@ -46,7 +46,7 @@ public class AstPrinter {
 
         // Unary nodes
         // Place the operator on its own line, then indent its child by one space.
-        // If the child is a single-line number, print the operator next to it (e.g. "-5").
+        // If the child is a single-line number, print the operator next to it ("-5")
         if (expr instanceof UnaryExpr) {
             UnaryExpr u = (UnaryExpr) expr;
             String op = u.getOperator().getLexeme();
@@ -133,16 +133,27 @@ public class AstPrinter {
         int h = Math.max(left.length, right.length);
         String[] result = new String[h];
 
-        for (int i = 0; i < h; i++) {
-            // If the left subtree has a line here use it, if not pad with spaces
-            String L = i < left.length ? left[i] : " ".repeat(width(left));
+        int leftWidth = width(left);
+        int rightWidth = width(right);
 
-            // If the right subtree has a line here use it, if not leave empty
-            String R = i < right.length ? right[i] : "";
+        for (int i = 0; i < h; i++) {
+            // If the left subtree has a line here use it, otherwise pad with spaces to leftWidth
+            String L = i < left.length ? padRight(left[i], leftWidth) : " ".repeat(leftWidth);
+
+            // If the right subtree has a line here use it, otherwise pad with spaces to rightWidth
+            String R = i < right.length ? padRight(right[i], rightWidth) : " ".repeat(rightWidth);
             
             result[i] = L + "   " + R;  // 3 spaces to match connector spacing
         }
         return result;
+    }
+
+    /**
+     * Pad the given string on the right with spaces up to the given width.
+     */
+    private String padRight(String s, int width) {
+        if (s.length() >= width) return s;
+        return s + " ".repeat(width - s.length());
     }
 
 }

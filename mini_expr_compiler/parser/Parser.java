@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Parser for Mini Expression Compiler.
  *
- * Implements a recursive descent parser for the grammar:
+ * Implements a recursive descent parser:
  *
  *   E -> E + T | E - T | T
  *   T -> T * F | T / F | F

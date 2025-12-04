@@ -45,20 +45,34 @@ public class AstPrinter {
         }
 
         // Unary nodes
-        // Place the operator on its own line, then indent its child by one space.
-        // If the child is a single-line number, print the operator next to it ("-5")
+        // If it's a unary minus applied to a number, just display it as the negative number itself
         if (expr instanceof UnaryExpr) {
             UnaryExpr u = (UnaryExpr) expr;
+            
+            // Special case: unary minus on a number - display as negative number
+            if (u.getRight() instanceof NumberExpr && u.getOperator().getType().toString().equals("MINUS")) {
+                double value = ((NumberExpr) u.getRight()).getValue();
+                String negativeNum = value == (int)value ? "-" + (int)value : "-" + value;
+                return new String[] { negativeNum };
+            }
+            
+            // Special case: unary minus on a binary expression - distribute the minus
+            if (u.getRight() instanceof BinaryExpr && u.getOperator().getType().toString().equals("MINUS")) {
+                BinaryExpr binExpr = (BinaryExpr) u.getRight();
+                // Create new unary expressions for left and right with minus operator
+                UnaryExpr negLeft = new UnaryExpr(u.getOperator(), binExpr.getLeft());
+                UnaryExpr negRight = new UnaryExpr(u.getOperator(), binExpr.getRight());
+                // Create a new binary expression with the negated operands
+                BinaryExpr negatedBinExpr = new BinaryExpr(negLeft, binExpr.getOperator(), negRight);
+                // Build the negated expression
+                return build(negatedBinExpr);
+            }
+            
             String op = u.getOperator().getLexeme();
             String opDisplay = "/".equals(op) ? "÷" : op;
 
             // Recursively build the right subtree
             String[] child = build(u.getRight());
-
-            // If the child is a single line and looks like a simple number, combine on one line: "-5"
-            if (child.length == 1 && child[0].trim().matches("\\d+")) {
-                return new String[] { opDisplay + child[0].trim() };
-            }
 
             // Result has one extra line: operator on top, then the child subtree
             String[] result = new String[child.length + 1];

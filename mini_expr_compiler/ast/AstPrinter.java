@@ -49,14 +49,14 @@ public class AstPrinter {
         if (expr instanceof UnaryExpr) {
             UnaryExpr u = (UnaryExpr) expr;
             
-            // Special case: unary minus on a number - display as negative number
+            // unary minus on a number - display as negative number
             if (u.getRight() instanceof NumberExpr && u.getOperator().getType().toString().equals("MINUS")) {
                 double value = ((NumberExpr) u.getRight()).getValue();
                 String negativeNum = value == (int)value ? "-" + (int)value : "-" + value;
                 return new String[] { negativeNum };
             }
             
-            // Special case: unary minus on a binary expression - distribute the minus
+            // unary minus on a binary expression - distribute the minus
             if (u.getRight() instanceof BinaryExpr && u.getOperator().getType().toString().equals("MINUS")) {
                 BinaryExpr binExpr = (BinaryExpr) u.getRight();
                 // Create new unary expressions for left and right with minus operator
@@ -99,7 +99,7 @@ public class AstPrinter {
             // We can use this to decide where we place the root operator and the branch connectors. 
             int leftWidth = width(left);
 
-            // Root line: pad with spaces so the operator sits roughly above the gap between L and R. "+2" is a small tuning offset
+            // Root line: pad with spaces so the operator sits roughly above the gap between L and R. "+1" is a small tuning offset
             String root = " ".repeat(leftWidth + 1) + opDisplay;
 
             // Connector line: spaces up to the left subtree width for proper spacing

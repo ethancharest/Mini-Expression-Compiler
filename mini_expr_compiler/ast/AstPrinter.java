@@ -59,11 +59,14 @@ public class AstPrinter {
             // unary minus on a binary expression - distribute the minus
             if (u.getRight() instanceof BinaryExpr && u.getOperator().getType().toString().equals("MINUS")) {
                 BinaryExpr binExpr = (BinaryExpr) u.getRight();
+
                 // Create new unary expressions for left and right with minus operator
                 UnaryExpr negLeft = new UnaryExpr(u.getOperator(), binExpr.getLeft());
                 UnaryExpr negRight = new UnaryExpr(u.getOperator(), binExpr.getRight());
+
                 // Create a new binary expression with the negated operands
                 BinaryExpr negatedBinExpr = new BinaryExpr(negLeft, binExpr.getOperator(), negRight);
+
                 // Build the negated expression
                 return build(negatedBinExpr);
             }
@@ -95,8 +98,8 @@ public class AstPrinter {
             String[] left = build(b.getLeft());
             String[] right = build(b.getRight());
 
-            // width(left) gives us how many characters the left subtree occupies on its widest line.
-            // We can use this to decide where we place the root operator and the branch connectors. 
+            // width(left) gives us how many characters the left subtree occupies on its widest line
+            // this is used to decide where we place the root operator and the branch connectors.
             int leftWidth = width(left);
 
             // Root line: pad with spaces so the operator sits roughly above the gap between L and R. "+1" is a small tuning offset
